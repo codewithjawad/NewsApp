@@ -34,7 +34,7 @@ class _CategoriesviewState extends State<Categoriesview> {
 
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView( 
+      body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
@@ -44,7 +44,8 @@ class _CategoriesviewState extends State<Categoriesview> {
                 itemCount: categoriesList.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 10),
                     child: InkWell(
                       onTap: () {
                         setState(() {
@@ -55,14 +56,14 @@ class _CategoriesviewState extends State<Categoriesview> {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           color: name == categoriesList[index]
-                              ? Colors.blue
-                              : Colors.grey.shade400,
+                              ? Colors.yellow
+                              : Colors.grey,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: Text(
                                 categoriesList[index].toString(),
-                                style: GoogleFonts.adamina(
+                                style: GoogleFonts.poppins(
                                     fontSize: 10, fontWeight: FontWeight.w700),
                               ),
                             ),
@@ -82,16 +83,18 @@ class _CategoriesviewState extends State<Categoriesview> {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text("Error: ${snapshot.error}"));
-                } else if (!snapshot.hasData || snapshot.data!.articles!.isEmpty) {
+                } else if (!snapshot.hasData ||
+                    snapshot.data!.articles!.isEmpty) {
                   return const Center(child: Text("No articles found"));
                 }
 
                 return ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(), 
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: snapshot.data!.articles!.length,
                   itemBuilder: (context, index) {
-                    DateTime datetime = DateTime.parse(snapshot.data!.articles![index].publishedAt.toString());
+                    DateTime datetime = DateTime.parse(
+                        snapshot.data!.articles![index].publishedAt.toString());
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 0.0),
                       child: Row(
@@ -103,22 +106,29 @@ class _CategoriesviewState extends State<Categoriesview> {
                               child: CachedNetworkImage(
                                 height: height * 0.18,
                                 width: width * 0.3,
-                                imageUrl: snapshot.data!.articles![index].urlToImage.toString(),
+                                imageUrl: snapshot
+                                    .data!.articles![index].urlToImage
+                                    .toString(),
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) => spinkit2,
-                                errorWidget: (context, url, error) => const Icon(Icons.error_outline_outlined, color: Colors.red),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error_outline_outlined,
+                                        color: Colors.red),
                               ),
                             ),
                           ),
                           Expanded(
                             child: Container(
-                              padding: const EdgeInsets.only(left: 15, right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 15, right: 10),
                               height: height * 0.18,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the start
                                 children: [
                                   Text(
-                                    snapshot.data!.articles![index].title.toString(),
+                                    snapshot.data!.articles![index].title
+                                        .toString(),
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.poppins(
@@ -130,10 +140,13 @@ class _CategoriesviewState extends State<Categoriesview> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 5.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          snapshot.data!.articles![index].source!.name.toString(),
+                                          snapshot.data!.articles![index]
+                                              .source!.name
+                                              .toString(),
                                           style: GoogleFonts.poppins(
                                             fontSize: 13,
                                             color: Colors.black54,
